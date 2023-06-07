@@ -1,0 +1,36 @@
+version: "2.18.1"
+services:
+  mysql_server:
+    image: "mysql:latest"
+    environment:
+      MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_DATABASE: "db"
+    volumes:
+      - db_storage:/var/lib/mysql
+    networks:
+      combonet:
+        ipv4_address: 10.0.0.10
+  app:
+    #build: .
+    image: "arcak0/restapi_mysql:1.0-alpine"
+    environment:
+      DB_USER: "root"
+      DB_PASS: "password"
+      DATABASE: "db"
+      MYSQL_IP: "10.0.0.10"
+    ports:
+      - "5000:5000"
+    networks:
+      - combonet
+    depends_on:
+      - mysql_server
+ 
+networks:
+  combonet:
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.0.0.0/24" # change with whatever subnet you want
+
+volumes:
+  db_storage: 

@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: "RST API Stack Calculator Task 1"
+  description: "Basic stack calculator as a REST API"
+  version: "2023-05-12"
+
+servers:
+  - url: /api
+    description: root
+
+paths:
+  /calc/{id}/peek:
+    get:
+      summary: "Returns the top of the stack"
+      responses:
+        "200":
+          description: "Successfully fetched stack[-1]"
+        "404":
+          description: "Stack not found."
+      operationId: "stack_calc.peek"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+
+  /calc/{id}/push/{n}:
+    post:
+      summary: "Appends a number to the stack"
+      responses:
+        "200":
+          description: "Successfully pushed number"
+      operationId: "stack_calc.push"
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      - in: path
+        name: n
+        required: true
+        schema:
+          type: integer
+
+  /calc/{id}/pop:
+    delete:
+      summary: "Deletes and returns the value on the top of the stack"
+      responses:
+        "200":
+          description: "Successfully poped"
+      operationId: "stack_calc.pop"
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+
+  /calc/{id}/add:
+    get:
+      summary: "Returns the sum of the last two values"
+      responses:
+        "200":
+          description: "Successfully fetched result"
+        "404":
+          description: "Stack not found."
+      operationId: "stack_calc.add"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+
+  /calc/{id}/subtract:
+    get:
+      summary: "Returns the diff of the last two values"
+      responses:
+        "200":
+          description: "Successfully fetched result"
+        "404":
+          description: "Stack not found."
+      operationId: "stack_calc.subtract"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+
+  /calc/{id}/multiply:
+    get:
+      summary: "Returns a multiplied value"
+      responses:
+        "200":
+          description: "Successfully fetched result"
+        "404":
+          description: "Stack not found."
+      operationId: "stack_calc.multiply"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+
+  /calc/{id}/divide:
+    get:
+      summary: "Returns a divided value"
+      responses:
+        "200":
+          description: "Successfully fetched result"
+        "404":
+          description: "Stack not found."
+      operationId: "stack_calc.divide"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+
