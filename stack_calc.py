@@ -98,9 +98,9 @@ def push(id, n):
     db_insert(id, n)
     return stack[id][-1]
 
-def pop(id):
+def pop(id, index=-1):
     try:
-        result = stack[id].pop()
+        result = stack[id].pop(index)
         stmt = sql.text(f"DELETE FROM stack WHERE stack_id = {id} AND num_value = {result} ORDER BY transaction_id DESC LIMIT 1")
         query_exec(stmt)
         query_exec(sql.insert(transaction_table).values(query = f"{stmt}"))
@@ -121,7 +121,7 @@ def add(id):
 def subtract(id):
     if len(stack[id]) < 2:
         return "Stack underflow.", 403
-    result = int(pop(id)[0]) - int(pop(id)[0])
+    result = int(pop(id, -2)[0]) - int(pop(id)[0])
     stack[id].append(result)
     db_insert(id, result)
     return result
@@ -137,7 +137,7 @@ def multiply(id):
 def divide(id):
     if len(stack[id]) < 2:
         return "Stack underflow.", 403
-    result = int(pop(id)[0]) / int(pop(id)[0])
+    result = int(pop(id, -2)[0]) / int(pop(id)[0])
     stack[id].append(result)
     db_insert(id, result)
     return result
