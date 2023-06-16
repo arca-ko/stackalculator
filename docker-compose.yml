@@ -1,6 +1,7 @@
 version: "2.18.1"
 services:
   mysql_server:
+    container_name: mysql_server
     image: "mysql:latest"
     environment:
       MYSQL_ROOT_PASSWORD: "password"
@@ -11,13 +12,13 @@ services:
       combonet:
         ipv4_address: 10.0.0.10
   app:
-    #build: .
-    image: "arcak0/restapi_mysql:1.0-alpine"
+    build: .
+      #image: "arcak0/restapi_mysql:1.1-alpine"
     environment:
       DB_USER: "root"
       DB_PASS: "password"
       DATABASE: "db"
-      MYSQL_IP: "10.0.0.10"
+      MYSQL_HOST: mysql_server
     ports:
       - "5000:5000"
     networks:

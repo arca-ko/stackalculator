@@ -5,10 +5,10 @@ import sqlalchemy as sql
 DATABASE = os.environ.get("DATABASE", "")
 DB_USER = os.environ.get("DB_USER", "")
 DB_PASS = os.environ.get("DB_PASS", "")
-MYSQL_IP = os.environ.get("MYSQL_IP", "")
+MYSQL_HOST = os.environ.get("MYSQL_HOST", "")
 
 # MySQL database preperations.
-engine = sql.create_engine(f"mysql+pymysql://{DB_USER}:{DB_PASS}@{MYSQL_IP}/{DATABASE}", echo=True)
+engine = sql.create_engine(f"mysql+pymysql://{DB_USER}:{DB_PASS}@{MYSQL_HOST}/{DATABASE}", echo=True)
 metadata_obj = sql.MetaData()
 
 table_names = ""
